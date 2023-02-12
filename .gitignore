@@ -1,8 +1,12 @@
 node_modules
 /coverage
-
+.env
+.dev.vars
 # Webstorm folder
 /.idea
 
 # Dummy files
 .DS_Store
+
+#npm 
+package-lock.json
