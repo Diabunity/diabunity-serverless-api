@@ -19,7 +19,7 @@ const initializeAuth = (config: Env) => {
 
 const authMiddleware = async (c: Context, next: () => Promise<void>) => {
   initializeAuth(c.env as Env);
-  const token = c.req.header('Authorization').replace(/^Bearer\s/, '');
+  const token = c.req.header('Authorization')?.replace(/^Bearer\s/, '');
   if (!token) {
     throw new HttpException(401, 'Missing Authorization header');
   }
