@@ -2,6 +2,7 @@ import { Context } from 'hono';
 import { Env } from '@types';
 import { HttpException } from '@exceptions/HttpException';
 import { initDatabase } from 'mongo-http';
+import DBManager from '@utils/db';
 
 let db: unknown;
 
@@ -21,7 +22,7 @@ const initializeDB = (config: Env) => {
 const dbMiddleware = async (c: Context, next: () => Promise<void>) => {
   try {
     initializeDB(c.env as Env);
-    c.set('db', db);
+    c.set('db', new DBManager(db));
   } catch (e) {
     throw new HttpException(500, 'Failed to initialize database');
   }
