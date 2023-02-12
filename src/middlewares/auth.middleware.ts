@@ -1,5 +1,6 @@
 import { Context } from 'hono';
 import { FlarebaseAuth } from '@marplex/flarebase-auth';
+
 import { HttpException } from '../exceptions/HttpException';
 import { Env } from '../types';
 
@@ -22,11 +23,13 @@ const authMiddleware = async (c: Context, next: () => Promise<void>) => {
   if (!token) {
     throw new HttpException(401, 'Missing Authorization header');
   }
+  let user;
   try {
-    await auth.verifyIdToken(token);
+    user = await auth.verifyIdToken(token);
   } catch {
     throw new HttpException(401, 'Invalid token');
   }
+  c.set('user', user);
   await next();
 };
 

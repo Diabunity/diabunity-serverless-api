@@ -29,10 +29,11 @@ app.onError((err, ctx) => {
 
 const api = new Hono<{ Bindings: Env }>();
 api.use('*', authMiddleware);
-api.route('/users', usersRouter);
 api.get('/firebase', async (c) => {
-  return c.json({ hola: 1 });
+  const user = c.get('user');
+  return c.json(user);
 });
+api.route('/users', usersRouter);
 
 app.route('/v1', api);
 
