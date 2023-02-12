@@ -8,3 +8,12 @@ export interface Env {
   MONGO_API_KEY: string;
   MONGO_DATA_SOURCE: string;
 }
+
+export enum CollectionName {
+  favorite = 'favorite',
+  measurement = 'measurement',
+  measurementsInTarget = 'measurementsInTarget',
+  post = 'post',
+  reaction = 'reaction',
+  user = 'users',
+}

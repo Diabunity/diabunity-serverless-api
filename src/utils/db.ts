@@ -1,4 +1,5 @@
 import { HttpException } from '@exceptions/HttpException';
+import { CollectionName } from '@types';
 
 export default class DBManager {
   private db: any;
@@ -6,7 +7,7 @@ export default class DBManager {
     this.db = db;
   }
 
-  async find(collection: string, filter: any) {
+  async find(collection: CollectionName, filter: any) {
     try {
       const result = await this.db.collection(collection).find(filter);
       if (!result.isSuccess || result.error) {
@@ -21,7 +22,7 @@ export default class DBManager {
       );
     }
   }
-  async findOne(collection: string, filter: any) {
+  async findOne(collection: CollectionName, filter: any) {
     try {
       const result = await this.db.collection(collection).findOne(filter);
       if (!result.isSuccess || result.error) {
