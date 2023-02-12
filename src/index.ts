@@ -5,8 +5,8 @@ import { logger } from 'hono/logger';
 import { sentry } from '@hono/sentry';
 import { StatusCode } from 'hono/utils/http-status';
 import { usersRouter } from '@routers/users';
-import authMiddleware from './middlewares/auth.middleware';
-import { HttpException } from './exceptions/HttpException';
+import authMiddleware from '@middlewares/auth.middleware';
+import { HttpException } from '@exceptions/HttpException';
 import { Env } from './types';
 
 const app = new Hono();
