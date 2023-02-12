@@ -36,7 +36,8 @@ api.get('/firebase', async (c) => {
 
   const db = c.get('db') as any;
   // TODO: Result could have a property error
-  const result = await db.collection('user').find({ filter: { _id: user_id } });
+  const result = await db.findOne('user', { _id: user_id });
+  //const result = await db.collection('user').find({ filter: { _id: user_id } });
 
   return c.json(result);
 });
