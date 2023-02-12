@@ -1,13 +1,15 @@
 import { Hono } from 'hono';
-import { prettyJSON } from 'hono/pretty-json';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
-import { sentry } from '@hono/sentry';
 import { StatusCode } from 'hono/utils/http-status';
-import { usersRouter } from '@routers/users';
-import authMiddleware from '@middlewares/auth.middleware';
+import { sentry } from '@hono/sentry';
+import { prettyJSON } from 'hono/pretty-json';
+
 import { HttpException } from '@exceptions/HttpException';
-import { Env } from './types';
+import { usersRouter } from '@routers/users';
+import { Env } from '@types';
+import dbMiddleware from '@middlewares/db.middleware';
+import authMiddleware from '@middlewares/auth.middleware';
 
 const app = new Hono();
 
@@ -28,10 +30,15 @@ app.onError((err, ctx) => {
 });
 
 const api = new Hono<{ Bindings: Env }>();
-api.use('*', authMiddleware);
+api.use('*', authMiddleware, dbMiddleware);
 api.get('/firebase', async (c) => {
-  const user = c.get('user');
-  return c.json(user);
+  const { user_id } = c.get('user') as any;
+
+  const db = c.get('db') as any;
+  // TODO: Result could have a property error
+  const result = await db.collection('user').find({ filter: { _id: user_id } });
+
+  return c.json(result);
 });
 api.route('/users', usersRouter);
 

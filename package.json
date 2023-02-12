@@ -20,6 +20,7 @@
   "dependencies": {
     "@hono/sentry": "^0.1.0",
     "@marplex/flarebase-auth": "^1.2.0",
-    "hono": "2.7.7"
+    "hono": "2.7.7",
+    "mongo-http": "0.0.17"
   }
 }
