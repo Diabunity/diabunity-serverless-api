@@ -1,0 +1,8 @@
+node_modules
+/coverage
+
+# Webstorm folder
+/.idea
+
+# Dummy files
+.DS_Store
