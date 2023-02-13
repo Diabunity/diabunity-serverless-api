@@ -34,6 +34,7 @@
 			"@routers/*": ["src/routers/*"],
 			"@utils/*": ["src/utils/*"],
 			"@services/*": ["src/services/*"],
+			"@controllers/*": ["src/controllers/*"],
 			"@models/*": ["src/models/*"],
 			"@middlewares/*": ["src/middlewares/*"],
 			"@exceptions/*": ["src/exceptions/*"],
