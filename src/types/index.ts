@@ -19,3 +19,10 @@ export enum CollectionName {
   reaction = 'reaction',
   user = 'users',
 }
+
+export enum ParamPropertyKey {
+  param = 'param',
+  query = 'query',
+  header = 'header',
+  cookie = 'cookie',
+}

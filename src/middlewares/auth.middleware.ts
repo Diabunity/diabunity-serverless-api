@@ -1,4 +1,4 @@
-import { Context } from 'hono';
+import { Context, Next } from 'hono';
 import { FlarebaseAuth } from '@marplex/flarebase-auth';
 
 import { HttpException } from '../exceptions/HttpException';
@@ -17,7 +17,7 @@ const initializeAuth = (config: Env) => {
   return auth;
 };
 
-const verifyTokenMiddleware = async (c: Context, next: () => Promise<void>) => {
+const verifyTokenMiddleware = async (c: Context, next: Next) => {
   initializeAuth(c.env as Env);
   const token = c.req.header('Authorization')?.replace(/^Bearer\s/, '');
   if (!token) {
@@ -33,10 +33,7 @@ const verifyTokenMiddleware = async (c: Context, next: () => Promise<void>) => {
   await next();
 };
 
-const validateCurrentUserMiddleware = async (
-  c: Context,
-  next: () => Promise<void>
-) => {
+const validateCurrentUserMiddleware = async (c: Context, next: Next) => {
   const { user_id } = c.get('user');
   const id = c.req.param('id');
 

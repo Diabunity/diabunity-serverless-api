@@ -1,13 +1,14 @@
 import { HttpException } from '@exceptions/HttpException';
-import { Context } from 'hono';
+import { ParamPropertyKey } from '@types';
+import { Context, Next } from 'hono';
 import { z } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 
 export default function validationMiddleware(
   schema: z.ZodSchema<any>,
-  property: 'param' // TODO: FULFILL THE REST OF THE PROPERTIES
+  property: ParamPropertyKey
 ) {
-  return async (c: Context, next: () => Promise<void>) => {
+  return async (c: Context, next: Next) => {
     const result = schema.safeParse(c.req[property]());
 
     if (!result.success) {
