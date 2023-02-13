@@ -17,7 +17,7 @@ const initializeAuth = (config: Env) => {
   return auth;
 };
 
-const authMiddleware = async (c: Context, next: () => Promise<void>) => {
+const verifyTokenMiddleware = async (c: Context, next: () => Promise<void>) => {
   initializeAuth(c.env as Env);
   const token = c.req.header('Authorization')?.replace(/^Bearer\s/, '');
   if (!token) {
@@ -33,4 +33,21 @@ const authMiddleware = async (c: Context, next: () => Promise<void>) => {
   await next();
 };
 
-export default authMiddleware;
+const validateCurrentUserMiddleware = async (
+  c: Context,
+  next: () => Promise<void>
+) => {
+  const { user_id } = c.get('user');
+  const id = c.req.param('id');
+
+  if (user_id !== id) {
+    throw new HttpException(
+      403,
+      'You are not authorized to perform this action'
+    );
+  }
+
+  await next();
+};
+
+export { verifyTokenMiddleware, validateCurrentUserMiddleware };
