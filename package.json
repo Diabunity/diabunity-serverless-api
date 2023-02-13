@@ -19,8 +19,10 @@
   },
   "dependencies": {
     "@hono/sentry": "^0.1.0",
-    "@marplex/flarebase-auth": "^1.2.0",
-    "hono": "2.7.7",
-    "mongo-http": "0.0.17"
+    "@marplex/flarebase-auth": "1.2.0",
+    "hono": "2.7.8",
+    "mongo-http": "0.0.17",
+    "zod": "3.20.6",
+    "zod-validation-error": "0.3.1"
   }
 }
