@@ -22,7 +22,7 @@ const initializeDB = (config: Env) => {
 const dbMiddleware = async (c: Context, next: () => Promise<void>) => {
   try {
     initializeDB(c.env as Env);
-    c.set('db', new DBManager(db));
+    c.set('db', DBManager.getInstance(db));
   } catch (e) {
     throw new HttpException(500, 'Failed to initialize database');
   }
