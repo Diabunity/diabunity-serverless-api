@@ -1,5 +1,5 @@
-import UsersService from '@services/users.service';
 import { Context } from 'hono';
+import UsersService from '@services/users.service';
 
 export default class UsersController {
   public static async getUser(c: Context) {

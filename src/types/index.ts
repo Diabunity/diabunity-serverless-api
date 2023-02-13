@@ -9,6 +9,8 @@ export interface Env {
   MONGO_DATA_SOURCE: string;
 }
 
+export interface User {} // TODO: FULFILL THIS
+
 export enum CollectionName {
   favorite = 'favorite',
   measurement = 'measurement',
